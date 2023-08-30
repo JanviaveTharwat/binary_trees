@@ -38,7 +38,7 @@ int completed_tree(const binary_tree_t *tree, int i, int n_node)
  * @tree: tree root
  * Return: 1 or 0
  */
-int completed_binary_tree (const binary_tree_t *tree)
+int completed_binary_tree(const binary_tree_t *tree)
 {
 	size_t n_node;
 
@@ -73,7 +73,7 @@ int parent_checker(const binary_tree_t *tree)
  */
 int binary_tree_is_heap(const binary_tree_t *tree)
 {
-	if (!completed_binary_tree (tree))
+	if (!completed_binary_tree(tree))
 		return (0);
 
 	return (parent_checker(tree->left) && parent_checker(tree->right));
