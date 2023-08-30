@@ -1,20 +1,20 @@
 #include "binary_trees.h"
 
 /**
- * is_bst_helper - Checks if a binary tree is a valid binary search tree
+ * bst_helper - Checks if a binary tree is a valid binary search tree
  * @tree: A pointer to the root node of the tree to check
  * @lo: The value of the smallest node visited thus far
  * @hi: The value of the largest node visited this far
  * Return: 1 or 0
  */
-int is_bst_helper(const binary_tree_t *tree, int lo, int hi)
+int bst_helper(const binary_tree_t *tree, int l, int h)
 {
 	if (tree != NULL)
 	{
-		if (tree->n < lo || tree->n > hi)
+		if (tree->n < l || tree->n > h)
 			return (0);
-		return (is_bst_helper(tree->left, lo, tree->n - 1) &&
-			is_bst_helper(tree->right, tree->n + 1, hi));
+		return (is_bst_helper(tree->left, l, tree->n - 1) &&
+			is_bst_helper(tree->right, tree->n + 1, h));
 	}
 	return (1);
 }
@@ -28,5 +28,5 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 		return (0);
-	return (is_bst_helper(tree, INT_MIN, INT_MAX));
+	return (bst_helper(tree, INT_MIN, INT_MAX));
 }
