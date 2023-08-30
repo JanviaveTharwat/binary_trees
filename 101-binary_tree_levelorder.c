@@ -3,20 +3,19 @@
 /**
  * binary_tree_height - measures the height of a binary tree
  * @tree: pointer to the root node of the tree to measure the height of
- *
- * Return: the height of the tree. If tree is NULL, return 0
+ * Return: the height of the tree or 0
  */
 size_t binary_tree_height(const binary_tree_t *tree)
 {
-	size_t left, right;
+	size_t lf, rt;
 
 	if (tree == NULL)
 		return (0);
-	left = binary_tree_height(tree->left);
-	right = binary_tree_height(tree->right);
-	if (left >= right)
-		return (1 + left);
-	return (1 + right);
+	lf = binary_tree_height(tree->left);
+	rt = binary_tree_height(tree->right);
+	if (lf >= rt)
+		return (1 + lf);
+	return (1 + rt);
 }
 
 /**
@@ -24,7 +23,6 @@ size_t binary_tree_height(const binary_tree_t *tree)
  * @tree: pointer to the root of the tree
  * @l: level of the tree to perform a function on
  * @func: function to perform
- *
  * Return: void
  */
 void binary_tree_level(const binary_tree_t *tree, size_t l, void (*func)(int))
@@ -50,11 +48,11 @@ void binary_tree_level(const binary_tree_t *tree, size_t l, void (*func)(int))
  */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	size_t height, i;
+	size_t h, i;
 
 	if (tree == NULL || func == NULL)
 		return;
-	height = binary_tree_height(tree);
-	for (i = 1; i <= height; i++)
+	h = binary_tree_height(tree);
+	for (i = 1; i <= h; i++)
 		binary_tree_level(tree, i, func);
 }
