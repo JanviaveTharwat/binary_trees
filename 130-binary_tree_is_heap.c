@@ -14,48 +14,48 @@ size_t binary_tree_size(const binary_tree_t *tree)
 }
 
 /**
- * tree_is_complete - checks if tree is complete
+ * completed_tree - checks if tree is complete
  * @tree: pointer to the tree root
  * @i: node index
- * @cnodes: number of nodes
+ * @n_node: number of nodes
  * Return: 1 or 0
  */
-int tree_is_complete(const binary_tree_t *tree, int i, int cnodes)
+int completed_tree(const binary_tree_t *tree, int i, int n_node)
 {
 	if (tree == NULL)
 		return (1);
 
-	if (i >= cnodes)
+	if (i >= n_node)
 		return (0);
 
-	return (tree_is_complete(tree->left, (2 * i) + 1, cnodes) &&
-		tree_is_complete(tree->right, (2 * i) + 2, cnodes));
+	return (completed_tree(tree->left, (2 * i) + 1, n_node) &&
+		completed_tree(tree->right, (2 * i) + 2, n_node));
 }
 
 
 /**
- * binary_tree_is_complete - calls to tree_is_complete function
+ * completed_binary_tree - calls to completed_tree function
  * @tree: tree root
  * Return: 1 or 0
  */
-int binary_tree_is_complete(const binary_tree_t *tree)
+int completed_binary_tree (const binary_tree_t *tree)
 {
-	size_t cnodes;
+	size_t n_node;
 
 	if (tree == NULL)
 		return (0);
 
-	cnodes = binary_tree_size(tree);
+	n_node = binary_tree_size(tree);
 
-	return (tree_is_complete(tree, 0, cnodes));
+	return (completed_tree(tree, 0, n_node));
 }
 
 /**
- * check_parent - checks if parent has a greater value than its childs
+ * parent_checker - checks if parent has a greater value than its childs
  * @tree: pointer to the node
  * Return: 1 or 0
  */
-int check_parent(const binary_tree_t *tree)
+int parent_checker(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 		return (1);
@@ -63,7 +63,7 @@ int check_parent(const binary_tree_t *tree)
 	if (tree->n > tree->parent->n)
 		return (0);
 
-	return (check_parent(tree->left) && check_parent(tree->right));
+	return (parent_checker(tree->left) && parent_checker(tree->right));
 }
 
 /**
@@ -73,8 +73,8 @@ int check_parent(const binary_tree_t *tree)
  */
 int binary_tree_is_heap(const binary_tree_t *tree)
 {
-	if (!binary_tree_is_complete(tree))
+	if (!completed_binary_tree (tree))
 		return (0);
 
-	return (check_parent(tree->left) && check_parent(tree->right));
+	return (parent_checker(tree->left) && parent_checker(tree->right));
 }
