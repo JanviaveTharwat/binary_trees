@@ -33,7 +33,7 @@ int recurse_complete(const binary_tree_t *tree, size_t index, size_t size)
 		return (0);
 
 	lsize = recurse_complete(tree->left, (2 * index) + 1, size);
-	rsize = recurse_for_complete(tree->right, (2 * index) + 2, size);
+	rsize = recurse_complete(tree->right, (2 * index) + 2, size);
 
 	if (lsize == 1 && rsize == 1)
 		return (1);
