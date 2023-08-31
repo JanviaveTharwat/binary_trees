@@ -131,6 +131,6 @@ avl_t *avl_remove(avl_t *root, int value)
 
 	if (root_a == NULL)
 		return (NULL);
-	bal(&root_a);
+	bal_fac(&root_a);
 	return (root_a);
 }
