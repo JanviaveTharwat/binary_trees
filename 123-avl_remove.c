@@ -5,7 +5,7 @@
  * @tree: tree to go through
  * Return: void
  */
-void bal_fsc(avl_t **tree)
+void bal_fac(avl_t **tree)
 {
 	int bf;
 
@@ -13,8 +13,8 @@ void bal_fsc(avl_t **tree)
 		return;
 	if ((*tree)->left == NULL && (*tree)->right == NULL)
 		return;
-	bal(&(*tree)->left);
-	bal(&(*tree)->right);
+	bal_fac(&(*tree)->left);
+	bal_fac(&(*tree)->right);
 	bf = binary_tree_balance((const binary_tree_t *)*tree);
 	if (bf > 1)
 		*tree = binary_tree_rotate_right((binary_tree_t *)*tree);
