@@ -1,13 +1,13 @@
 #include "binary_trees.h"
 
 /**
- * bal - Measures balance factor of a AVL
+ * bal_fac - Measures balance factor of a AVL
  * @tree: tree to go through
- * Return: balanced factor
+ * Return: void
  */
-void bal(avl_t **tree)
+void bal_fsc(avl_t **tree)
 {
-	int bval;
+	int bf;
 
 	if (tree == NULL || *tree == NULL)
 		return;
@@ -15,20 +15,21 @@ void bal(avl_t **tree)
 		return;
 	bal(&(*tree)->left);
 	bal(&(*tree)->right);
-	bval = binary_tree_balance((const binary_tree_t *)*tree);
-	if (bval > 1)
+	bf = binary_tree_balance((const binary_tree_t *)*tree);
+	if (bf > 1)
 		*tree = binary_tree_rotate_right((binary_tree_t *)*tree);
-	else if (bval < -1)
+	else if (bf < -1)
 		*tree = binary_tree_rotate_left((binary_tree_t *)*tree);
 }
+
 /**
- * successor - get the next successor i mean the min node in the right subtree
+ * min_node - get the min node in the right subtree
  * @node: tree to check
  * Return: the min value of this tree
  */
-int successor(bst_t *node)
+int min_node(bst_t *node)
 {
-	int left = 0;
+	int lf = 0;
 
 	if (node == NULL)
 	{
@@ -36,19 +37,19 @@ int successor(bst_t *node)
 	}
 	else
 	{
-		left = successor(node->left);
-		if (left == 0)
+		lf = min_node(node->left);
+		if (lf == 0)
 		{
 			return (node->n);
 		}
-		return (left);
+		return (lf);
 	}
 
 }
 /**
  *remove_type - function that removes a node depending of its children
  *@root: node to remove
- *Return: 0 if it has no children or other value if it has
+ *Return: 0 or child value
  */
 int remove_type(bst_t *root)
 {
@@ -86,7 +87,7 @@ int remove_type(bst_t *root)
 	}
 	else
 	{
-		new_value = successor(root->right);
+		new_value = min_node(root->right);
 		root->n = new_value;
 		return (new_value);
 	}
